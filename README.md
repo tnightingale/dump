@@ -3,7 +3,7 @@
 The best project ever.
 
 ## Getting Started
-Install the module with: `npm install dump`
+Install the module with: `npm install`
 
 _Requires redis to be running:_
 ```bash
