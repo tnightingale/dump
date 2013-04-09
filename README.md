@@ -3,7 +3,13 @@
 The best project ever.
 
 ## Getting Started
-Install the module with: `npm install dump`
+Install the module with: `npm install`
+
+_Requires redis to be running:_
+```bash
+# * The path to redis.conf is the default when redis is installed with homebrew.
+redis-server /usr/local/etc/redis.conf
+```
 
 ```javascript
 var dump = require('dump').createServer().start();
