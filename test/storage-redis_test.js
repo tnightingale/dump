@@ -1,6 +1,12 @@
 'use strict';
 
-var dump = require('../lib/dump');
+var SandboxedModule = require('sandboxed-module');
+
+var storage_redis = SandboxedModule.require('../lib/storage-redis', {
+        requires: {
+            'redis': require('./mock-redis')
+        }
+    });
 
 /*
   ======== A Handy Little Nodeunit Reference ========
@@ -22,9 +28,8 @@ var dump = require('../lib/dump');
     test.ifError(value)
 */
 
-exports['awesome'] = {
+exports['storage redis'] = {
   setUp: function(done) {
-    // setup here
     done();
   },
   'no args': function(test) {
@@ -36,3 +41,4 @@ exports['awesome'] = {
     test.done();
   },
 };
+
