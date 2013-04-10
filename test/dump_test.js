@@ -1,38 +1,29 @@
 'use strict';
 
-var dump = require('../lib/dump');
+var MemoryStorage = require('../lib/storage-memory.js'),
+    Dump = require('../lib/dump');
 
-/*
-  ======== A Handy Little Nodeunit Reference ========
-  https://github.com/caolan/nodeunit
+exports['dump'] = {
+    setUp: function (done) {
+        done();
+    },
 
-  Test methods:
-    test.expect(numAssertions)
-    test.done()
-  Test assertions:
-    test.ok(value, [message])
-    test.equal(actual, expected, [message])
-    test.notEqual(actual, expected, [message])
-    test.deepEqual(actual, expected, [message])
-    test.notDeepEqual(actual, expected, [message])
-    test.strictEqual(actual, expected, [message])
-    test.notStrictEqual(actual, expected, [message])
-    test.throws(block, [error], [message])
-    test.doesNotThrow(block, [error], [message])
-    test.ifError(value)
-*/
+    'default': function (test) {
+        test.expect(1);
 
-exports['awesome'] = {
-  setUp: function(done) {
-    // setup here
-    done();
-  },
-  'no args': function(test) {
-    test.expect(1);
-    // tests here
+        var dump = new Dump();
+        test.ok(dump.store instanceof MemoryStorage, 'Dump should defualt to MemoryStorage.');
 
-    dump.awesome = 'awesome';
-    test.equal(dump.awesome, 'awesome', 'should be awesome.');
-    test.done();
-  },
+        test.done();
+    },
+
+    'use': function (test) {
+        test.expect(1);
+
+        var dump = new Dump();
+        dump.use('memory');
+        test.ok(dump.store instanceof MemoryStorage, 'use() should set a new store.');
+
+        test.done();
+    },
 };
