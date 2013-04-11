@@ -9,12 +9,7 @@ Util.inherits(MockRedisClient, EventEmitter);
 MockRedisClient.prototype.auth = function () {};
 
 MockRedisClient.prototype.get = function (key, cb) {
-    if (key in this.data) {
-        cb(null, this.data[key]);
-    }
-    else {
-        cb("ERROR", null);
-    }
+    cb(null, this.data[key] || null);
 };
 
 MockRedisClient.prototype.set = function (key, data, cb) {

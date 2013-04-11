@@ -27,11 +27,11 @@ exports['Storage: Memory'] = {
             test.expect(1);
 
             var load = this.store.load(1);
-            load.then(function () {
-                test.ok(false, "Loading a non-existent item should fail."); test.done();
+            load.then(function (item) {
+                test.ok(item === null, "Loading a non-existent item should give null."); test.done();
             },
-            function (err) {
-                test.ok(err, "Loading a non-existent item should fail."); test.done();
+            function () {
+                test.ok(false, "Loading a non-existent item shouldn't fail."); test.done();
             });
         }
     },
