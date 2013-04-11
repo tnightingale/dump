@@ -71,14 +71,21 @@ exports['storage redis'] = {
 
     'save()': {
         'successfully save': function (test) {
-            var msg = "save({ foo: 'bar' }) shouldn't fail.";
-            test.expect(2);
+            test.expect(3);
 
-            var save = this.store.save({ foo: 'bar' });
-            test.ok('then' in save && typeof save.then === 'function', "load() should return a Promises/A promise.");
+            var key_template = this.store.KEYTEMPLATE,
+                data = { foo: 'bar' },
+                storage = this.mock_client.data,
+                msg = "save({ foo: 'bar' }) shouldn't fail.",
+                save = this.store.save(data);
+
+            test.ok('then' in save && typeof save.then === 'function', "save() should return a Promises/A promise.");
 
             save.then(function (id) {
-                test.equal(id, 1, msg); test.done();
+                var key = Util.format(key_template, 'doc', id);
+                test.equal(id, 1, msg);
+                test.equal(storage[key], JSON.stringify(data), 'save() should serialize and send data to client.');
+                test.done();
             }, function () {
                 test.ok(false, msg); test.done();
             });

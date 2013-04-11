@@ -17,6 +17,7 @@ MockRedisClient.prototype.set = function (key, data, cb) {
         cb(true, null);
     }
     else {
+        this.data[key] = data;
         cb(null, 'OK');
     }
 };
